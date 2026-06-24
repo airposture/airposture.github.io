@@ -1,14 +1,11 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import Features from "../components/features";
 import LoveCards from "../components/LoveCards";
-import EmailInputPopup from "../components/EmailInputPopup";
 import styles from "../styles/Home.module.css";
-import { APP_STORE_LINK } from "../utils/links";
 import DownloadButton from "../components/DownloadButton";
 
 const Analytics = dynamic<any>(
@@ -17,30 +14,12 @@ const Analytics = dynamic<any>(
 );
 
 function Home() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   useEffect(() => {
     const el = document.querySelector("html");
     if (el) {
       el.style.backgroundColor = "#000000";
     }
   });
-
-  const handleEmailSubmit = async (email: string) => {
-    const response = await fetch("/api/waitlist", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to submit email");
-    }
-
-    return response.json();
-  };
   return (
     <div className={styles.container}>
       <Head>
